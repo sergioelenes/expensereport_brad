@@ -3,6 +3,7 @@ from flask_basicauth import BasicAuth
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import func, case
 import pandas as pd
+import os
 
 app = Flask(__name__)
 app.secret_key = "Macarenas"
@@ -11,7 +12,7 @@ app.config['BASIC_AUTH_USERNAME'] = 'brad'
 app.config['BASIC_AUTH_PASSWORD'] = 'keonda'
 basic_auth = BasicAuth(app)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///expenses.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 db = SQLAlchemy(app)
 
 class Concept(db.Model):
