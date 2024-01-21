@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="author" content="Keonda">
+    <meta description="description" content="Keonda">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jupyter.org/notebook/5.1.0/style/style.min.css">
+    <link rel="icon" type="image/x-icon" href="/static/img/logi.png">
+    <title>Myrick's | Expenses Control</title>
+  </head>
+  <body>
+    <div class="container-fluid bg-light text-black-50 p-3">
+      <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+        <a href="/"><button type="button" class="btn btn-success">Home</button></a>
+        <a href="/year_resume"><button type="button" class="btn btn-success">Year Resume</button></a>
+        <a href="/all_expenses"><button type="button" class="btn btn-success">AllData</button></a>
+      </div>
+      <div class="col-auto">
+        <form action="/bymonth" method="POST">
+            <fieldset enabled>
+                <label for="autoSizingSelect" class="col-form-label-sm" for="autoSizingInput"></label>
+                <select id="autoSizingSelect" class="form-select" name="elmess">
+                  <option>Month Select</option>
+                  <option>January</option>
+                  <option>February</option>
+                  <option>March</option>
+                  <option>April</option>
+                  <option>May</option>
+                  <option>June</option>
+                  <option>July</option>
+                  <option>August</option>
+                  <option>September</option>
+                  <option>October</option>
+                  <option>November</option>
+                  <option>December</option>
+                </select>
+              <button type="submit" class =>Submit</button>
+            </fieldset>
+          </form>
+        </div>
+    </div>
+    
+
+    <div class="container">
+      <div class="rendered_html">
+          <table>
+            {% for table in tables%}
+            {{titles[loop.index]}}
+              {{table | safe}}
+              {% endfor %}
+          </table>
+      </div>
+    </div>
+    <div class="fixed-bottom ">
+
+  </div>
+  </body>
+</html>
