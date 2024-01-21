@@ -27,9 +27,11 @@
     <div class="container mt-4">
         <form action="/datain" method="POST">
             <fieldset>
+                <p>
                 <legend>Add Expsnes</legend>
 
                 <div class="mb-3">
+                    
                     <label for="monthSelect" class="form-label">Select Month</label>
                     <select id="monthSelect" class="form-select" name="month" required>
                       <option>Month Select</option>
@@ -71,6 +73,7 @@
                   <div class="mb-3">
                       <button type="submit" class="btn btn-success">Submit Info</button>
                   </div>
+                </p>
               </fieldset>
         </form>
   
@@ -94,6 +97,7 @@
                   <a href="/all_expenses" class="btn btn-success">All Data</a>
               </p>
           </div>
+          
         </fieldset>
       </div>
       <div class="container mt-4">
@@ -109,18 +113,21 @@
             </form>
         </div>        
         <div class="mb-3">
-        <form action="/deleteconcept" method="POST">      
-            <label for="conceptSelect" class="form-label">Select the Concept to Delete</label>
-            <select id="conceptSelect" class="form-select" name="deleteconcept" required>
-            <option value="" disabled selected>Select Concept</option>
-            {% for concept in concepts %}
-                <option value="{{ concept.name }}">{{ concept.name }}</option>
-            {% endfor %}
-            </select>
-            <div class="mb-3">
-            <button type="submit" class="btn btn-danger">Delete</button>
+            <p>
+                <form action="/deleteconcept" method="POST">      
+                    <label for="conceptSelect" class="form-label">Select the Concept to Delete</label>
+                    <select id="conceptSelect" class="form-select" name="deleteconcept" required>
+                    <option value="" disabled selected>Select Concept</option>
+                    {% for concept in concepts %}
+                        <option value="{{ concept.name }}">{{ concept.name }}</option>
+                    {% endfor %}
+                    </select>
+                    <div class="mb-3">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </p>
             </div>
-        </form>
+        
         </div>
         </fieldset>
       </div>
