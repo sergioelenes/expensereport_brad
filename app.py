@@ -7,11 +7,13 @@ import os
 
 app = Flask(__name__)
 app.secret_key = "Macarenas"
+
+# Configuración de BasicAuth
 basic_auth = BasicAuth(app)
 app.config['BASIC_AUTH_USERNAME'] = 'brad'
 app.config['BASIC_AUTH_PASSWORD'] = 'keonda'
-basic_auth = BasicAuth(app)
 
+# Configuración de SQLAlchemy desde la variable de entorno
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
