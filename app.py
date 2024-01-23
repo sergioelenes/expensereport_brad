@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_basicauth import BasicAuth
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import func, case
+import psycopg2
 import pandas as pd
 import os
 
