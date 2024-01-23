@@ -13,7 +13,7 @@ app.config['BASIC_AUTH_USERNAME'] = 'brad'
 app.config['BASIC_AUTH_PASSWORD'] = 'keonda'
 basic_auth = BasicAuth(app)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://postgres:e96206c6e9b8f5acf6f0d4863ce4cf8a@dokku-postgres-brad:31173/brad'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://postgres:e96206c6e9b8f5acf6f0d4863ce4cf8a@dokku-postgres-brad:5432/brad'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
