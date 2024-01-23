@@ -5,7 +5,6 @@ from sqlalchemy import func, case
 import psycopg2
 import pandas as pd
 import os
-import time
 
 app = Flask(__name__)
 app.secret_key = "Macarenas"
@@ -43,35 +42,6 @@ def create_default_concepts():
         db.session.add(concept)
 
     db.session.commit()
-
-def connect_to_database():
-    retries = 3
-    delay_seconds = 180
-    
-    for _ in range(retries):
-        try:
-            return psycopg2.connect(
-                host="dokku-postgres-brad",
-                user="postgres",
-                password="e96206c6e9b8f5acf6f0d4863ce4cf8a",
-                database="brad"
-            )
-        except psycopg2.OperationalError as e:
-            print(f"Error connecting to PostgreSQL: {e}")
-            print(f"Retrying in {delay_seconds} seconds...")
-            time.sleep(delay_seconds)
-
-    raise Exception(f"Unable to connect to PostgreSQL after {retries} retries.")
-
-# Intentamos conectarnos a la base de datos
-db = None
-while db is None:
-    try:
-        db = connect_to_database()
-    except Exception as e:
-        print(f"Error connecting to database: {e}")
-        print("Retrying in 3 minutes...")
-        time.sleep(180)
 
 with app.app_context():
     db.create_all()
@@ -200,5 +170,47 @@ def year_resume():
 
     return render_template('year_resume.html', tables=[pivot.to_html(classes="table table-striped table-hover")], titles=[''])
 
+
+
+
+
+
 if __name__ == '__main__':
     app.run(debug=True)
+
+
+'''
+@app.route("/year", methods=['GET','POST'])
+@basic_auth.required
+def year():
+        try:
+                df = pd.read_excel('expensedb.xlsx', sheet_name='detail')
+                pivot = df.pivot_table(values='Amount', index='Concept', columns='Month', aggfunc='sum', fill_value="-", margins=True, margins_name='Total')
+                #pivott = pivot.style.format({"Amount":"{:,d}"})
+                return render_template('reports.html', tables=[pivot.to_html()], titles=[''] )
+        except ValueError:
+                return render_template('reports.html')
+
+
+@app.route("/bymonth", methods=['GET','POST'])
+@basic_auth.required
+def bymonth():
+        if request.method == 'POST':
+                mess = request.form['elmess']
+                dflogstotal = pd.read_excel('expensedb.xlsx', sheet_name='detail', index_col=1)
+                dflogstotal2 = dflogstotal.fillna(" ")
+                pormes = dflogstotal2[(dflogstotal['Month']==mess)]
+                return render_template('reports.html', tables=[pormes.to_html()], titles=[''] )
+
+@app.route("/data", methods=['GET','POST'])
+@basic_auth.required
+def data():
+        dflogstotal = pd.read_excel('expensedb.xlsx', sheet_name='detail')
+        dflogstotal2 = dflogstotal.fillna(" ")
+        return render_template('reports.html', tables=[dflogstotal2.to_html()], titles=[''] )
+
+@app.route('/downloadxls')
+@basic_auth.required
+def downloadxls ():
+        alldata = "expensedb.xlsx"
+        return send_file(alldata, as_attachment=True)'''
