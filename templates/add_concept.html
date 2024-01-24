@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+    <fieldset>
+      <legend>Create or Delete Concepts</legend>
+      <div class="mb-3 p-2">
+        <form action="/add_concept" method="POST">
+            <div class="mb-3">
+                <label for="newconcept" class="form-label">Create a new expense concept</label>
+                <p><input type="text" id="newconcept" class="form-control" placeholder="New Expense Concept" name="newconcept" required></p>
+                <p><button type="submit" class="btn btn-success">Create</button></p>
+            </div>
+        </form>
+    </div>        
+    <div class="mb-3">
+        <p>
+            <form action="/deleteconcept" method="POST" onsubmit="return confirm('Are you sure you want to delete this concept?');">     
+                <label for="conceptSelect" class="form-label">Select the Concept to Delete</label>
+                <select id="conceptSelect" class="form-select" name="deleteconcept" required>
+                <option value="" disabled selected>Select Concept</option>
+                {% for concept in concepts %}
+                    <option value="{{ concept.name }}">{{ concept.name }}</option>
+                {% endfor %}
+                </select>
+                <div class="mb-3">
+                <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+        </p>
+        </div>
+    
+    </div>
+    </fieldset>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="alert alert-info" role="alert">
+                {% for message in messages %}
+                    {{ message }}<br>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+  </div>
+  
+  {% endblock %}
+  
+

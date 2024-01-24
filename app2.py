@@ -13,8 +13,7 @@ app.config['BASIC_AUTH_USERNAME'] = 'brad'
 app.config['BASIC_AUTH_PASSWORD'] = 'keonda'
 basic_auth = BasicAuth(app)
 
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://postgres:e96206c6e9b8f5acf6f0d4863ce4cf8a@198.251.66.139:31173/brad' if 'DATABASE_URL' not in os.environ else os.environ['DATABASE_URL']
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///expenses.db'
 db = SQLAlchemy(app)
 
 
