@@ -1,28 +1,29 @@
+import os
+import pandas as pd
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_basicauth import BasicAuth
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import func, case
-import psycopg2
-import pandas as pd
-import os
 
+# Configuración de la aplicación
 app = Flask(__name__)
 app.secret_key = "Macarenas"
-basic_auth = BasicAuth(app)
+
+# Configuración de la autenticación básica
 app.config['BASIC_AUTH_USERNAME'] = 'brad'
 app.config['BASIC_AUTH_PASSWORD'] = 'keonda'
 basic_auth = BasicAuth(app)
 
+# Configuración de la base de datos PostgreSQL utilizando os.environ
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
+    "DATABASE_URI", 'postgres://postgres:d22a5660ec8eb7f39123ca572ffba76f@dokku-postgres-bradexpenses:5432/bradexpenses')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-#app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 db = SQLAlchemy(app)
 
-
+# Definición de modelos
 class Concept(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), unique=True, nullable=False)
-    
 
 class Expense(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -32,6 +33,7 @@ class Expense(db.Model):
     amount = db.Column(db.Float, nullable=False)
     notes = db.Column(db.String(200), nullable=False)
 
+# Función para crear conceptos por defecto
 def create_default_concepts():
     default_concepts = ['Auto fuel', 'Auto maint', 'Auto insur', 'Bella maint', 'Bella supplies', 'Dining', 'Fideicomisario',
                         'Gifts', 'Groceries', 'Hoa', 'Home repair', 'Household', 'Medical', 'Personal', 'Phone',
@@ -44,13 +46,15 @@ def create_default_concepts():
 
     db.session.commit()
 
+# Crear tablas si no existen
 with app.app_context():
     db.create_all()
     existing_concepts = Concept.query.all()
     if not existing_concepts:
         create_default_concepts()
 
-@app.route("/", methods=['GET','POST'])
+# Ruta para el inicio de sesión
+@app.route("/", methods=['GET', 'POST'])
 @basic_auth.required
 def loginroute():
     concepts = Concept.query.order_by(func.lower(Concept.name)).all()
