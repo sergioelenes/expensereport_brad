@@ -5,6 +5,8 @@ from flask_basicauth import BasicAuth
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import func, case
 
+database_url = os.environ.get("DATABASE_URL")
+
 # Configuración de la aplicación
 app = Flask(__name__)
 app.secret_key = "Macarenas"
@@ -15,8 +17,7 @@ app.config['BASIC_AUTH_PASSWORD'] = 'keonda'
 basic_auth = BasicAuth(app)
 
 # Configuración de la base de datos PostgreSQL utilizando os.environ
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
-    "DATABASE_URI", 'postgres://postgres:d22a5660ec8eb7f39123ca572ffba76f@dokku-postgres-bradexpenses:5432/bradexpenses')
+app.config['SQLALCHEMY_DATABASE_URI'] = database_url
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
