@@ -4,8 +4,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_basicauth import BasicAuth
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import func, case
-
-database_url = os.environ.get("DATABASE_URL")
+import psycopg2
 
 # Configuración de la aplicación
 app = Flask(__name__)
@@ -17,8 +16,8 @@ app.config['BASIC_AUTH_PASSWORD'] = 'keonda'
 basic_auth = BasicAuth(app)
 
 # Configuración de la base de datos PostgreSQL utilizando os.environ
-app.config['SQLALCHEMY_DATABASE_URI'] = database_url
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
+#app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 # Definición de modelos

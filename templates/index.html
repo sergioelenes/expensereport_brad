@@ -1,35 +1,24 @@
 {% extends "base.html" %}
 {% block content %}
     <section class="py-5 text-center container">
-      <div class="card-group">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Add Expenses</h5>
-            <p class="card-text"> </p>
+        <div class="card border-light" >
+            <img src="/static/img/backpic.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Myricks Expense Constrol</h5>
+              <p class="card-text">You can add or eliminate amounts, concepts, etc.</p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <a href="/add_expense" button type="button" class="btn btn-success btn-lg btn-block"> Add Expenses</a>
+                <p> </p>
+                <a href="/concepts" button type="button" class="btn btn-success btn-lg btn-block">Add or Delete Concepts</a>
+                <p> </p>
+                <a href="/reports" button type="button" class="btn btn-success btn-lg btn-block">Go to Reports</a>
+                <p> </p>
+            </ul>
+            <div class="card-body">
+              <a href="mailto:sergioelenes@gmail.com" class="card-link">contact me</a>
+            </div>
           </div>
-          <div class="card-footer">
-            <a href="/add_expense" button type="button" class="btn btn-success btn-lg btn-block">For Add Expenses</a>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Reports</h5>
-            <p class="card-text"> </p>
-          </div>
-          <div class="card-footer">
-            <a href="/reports" button type="button" class="btn btn-success btn-lg btn-block">Go to Reports</a>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Add/Delete Concepts</h5>
-            <p class="card-text"> </p>
-          </div>
-          <div class="card-footer">
-            <a href="/concepts" button type="button" class="btn btn-success btn-lg btn-block">Go to Concepts</a>
-          </div>
-        </div>
-      </div>
     </section>
   
   {% endblock %}
